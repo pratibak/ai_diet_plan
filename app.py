@@ -375,7 +375,11 @@ def render_wellness_calendar() -> None:
             st.metric("Water logged", f"{hydration_value:.1f} L")
         else:
             st.caption("No hydration entry logged. Record intake via the Hydration Coach tab.")
-
+st.set_page_config(
+    page_title="FitFuel Wellness Hub",
+    page_icon="🍽️",
+    layout="wide"
+)
 def main() -> None:
     st.set_page_config(
         page_title="FitFuel Wellness Hub",

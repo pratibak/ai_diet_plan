@@ -1,0 +1,9 @@
+streamlit==1.38.0
+openai==1.47.0
+pydantic==2.7.4
+pydantic-core==2.18.4
+pandas==2.2.2
+numpy==1.26.4
+python-dotenv==1.0.1
+requests==2.32.3
+altair==5.4.1

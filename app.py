@@ -14,6 +14,14 @@ from diet_plan import (
     render_diet_plan_ui,
 )
 from food import render_nutrition_ui
+import streamlit as st
+import openai
+import pydantic
+
+st.write("✅ Environment check:")
+st.write("Streamlit:", st.__version__)
+st.write("OpenAI:", openai.__version__)
+st.write("Pydantic:", pydantic.__version__)
 
 
 def _get_saved_profile() -> Dict:

@@ -23,6 +23,11 @@ st.write("Streamlit:", st.__version__)
 st.write("OpenAI:", openai.__version__)
 st.write("Pydantic:", pydantic.__version__)
 
+st.set_page_config(
+        page_title="FitFuel Wellness Hub",
+        page_icon="🍽️",
+        layout="wide",
+    )
 
 def _get_saved_profile() -> Dict:
     return st.session_state.get("diet_profile", {})
@@ -375,17 +380,13 @@ def render_wellness_calendar() -> None:
             st.metric("Water logged", f"{hydration_value:.1f} L")
         else:
             st.caption("No hydration entry logged. Record intake via the Hydration Coach tab.")
-st.set_page_config(
-    page_title="FitFuel Wellness Hub",
-    page_icon="🍽️",
-    layout="wide"
-)
+
 def main() -> None:
-    st.set_page_config(
-        page_title="FitFuel Wellness Hub",
-        page_icon="🍽️",
-        layout="wide",
-    )
+    # st.set_page_config(
+    #     page_title="FitFuel Wellness Hub",
+    #     page_icon="🍽️",
+    #     layout="wide",
+    # )
 
     st.title("FitFuel Wellness Hub")
     st.caption("An integrated fitness companion for diet planning, meal analysis, hydration, and training insights.")

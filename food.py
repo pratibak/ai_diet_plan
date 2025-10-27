@@ -461,8 +461,6 @@ def render_nutrition_ui() -> None:
                 _set_status("info", f"'{item}' is already listed.")
 
         if added_any:
-            st.session_state["nutrition_quick_input"] = ""
-            st.session_state["nutrition_quick_pick"] = []
             _set_status("success", "Meal updated.")
 
     def _make_remove_callback(index: int):
@@ -474,7 +472,6 @@ def render_nutrition_ui() -> None:
 
     def _clear_all_callback():
         st.session_state[_FOODS_LIST_KEY] = []
-        st.session_state["nutrition_quick_input"] = ""
         _set_status("info", "Meal reset.")
 
     tab_quick, tab_bulk = st.tabs(["🍴 Quick Entry", "📝 Bulk Paste"])

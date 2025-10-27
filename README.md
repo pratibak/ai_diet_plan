@@ -1,17 +1,126 @@
-# AI Diet Plan Generator
+# FitFuel Wellness Hub
 
-A Streamlit-based AI diet plan generator that creates personalized 7-day meal plans based on Indian cuisine preferences, health conditions, and dietary restrictions.
+FitFuel is a Streamlit application that combines an AI diet planner, a meal-level nutrition analyzer, hydration tracking, and a wellness calendar into a single workspace. It is purpose-built for Indian cuisine and uses the IFCT 2017 nutrient composition data plus OpenAI models for tailored meal planning.
 
-## Features
+## Key Features
 
-- 🎯 **Personalized Nutrition**: Calculate BMR, TDEE, and macro targets based on age, gender, weight, height, and activity level
-- 🍛 **Regional Indian Cuisine**: Support for South, North, West, and East Indian regional preferences
-- 🥗 **Dietary Preferences**: Vegetarian, Non-Vegetarian, Vegan, and Eggetarian options
-- 🏥 **Health Condition Support**: Special considerations for Diabetes, High BP, PCOD, Thyroid, High Cholesterol
-- 🤖 **AI-Powered**: Uses OpenAI GPT-4 to generate diverse and authentic meal plans
-- ⚠️ **Smart Warnings**: Detects potential conflicts and provides health warnings
-- 🚫 **Allergy Safety**: Strict allergen checking in meal plans
-- 🎨 **User-Friendly Interface**: Interactive Streamlit UI with sidebar inputs and detailed meal plan display
+- 🧬 **Profile-driven planning** – Create a single personal profile (goals, dietary preferences, allergies) and reuse it across all tools.
+- 🍱 **AI Diet Planner** – Generate validated 7-day Indian meal plans with macro targets, allergen checks, and actionable warnings.
+- 📊 **Nutrition Analyzer** – Stage meals ad‑hoc and see macros/micros using the IFCT 2017 food database; ideal before or after eating.
+- 💧 **Hydration Coach** – Compute recommended intake for the day and log actual consumption with a few clicks.
+- 🗓️ **Wellness Calendar** – View plan adherence and hydration logs on an interactive calendar; achieved plan days glow green.
+- 📈 **Dashboard overview** – Glance at today’s targets, queued meals, and hydration trends without digging into multiple tabs.
+
+## Prerequisites
+
+- Python 3.8+ (for local development)
+- Docker & Docker Compose (optional)
+- An OpenAI API key with access to GPT-4o-mini or similar model
+
+## Installation
+
+### Option 1: Docker (Recommended)
+
+```bash
+git clone <repository-url> diet
+cd diet
+echo "OPENAI_API_KEY=your-api-key-here" > .env
+docker-compose up --build
+```
+
+Or using Docker directly:
+
+```bash
+docker build -t fitfuel .
+docker run -p 8501:8501 --env-file .env fitfuel
+```
+
+### Option 2: Local Development
+
+```bash
+git clone <repository-url> diet
+cd diet
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+export OPENAI_API_KEY="your-api-key-here"
+streamlit run app.py
+```
+
+The app is available at http://localhost:8501.
+
+## Application Tour
+
+| Tab | Purpose |
+| --- | --- |
+| **Dashboard** | Shows today’s plan targets, staged meals, hydration trend, and quick status cards. |
+| **Profile** | Single source of truth for personal details, goals, allergies, and preferences. |
+| **Diet Planner** | Uses the saved profile to generate a 7-day plan, complete with macros, warnings, and meal breakdowns. |
+| **Nutrition Analyzer** | Evaluate any meal using quick picks or bulk paste; compare against IFCT macros. |
+| **Hydration Coach** | Calculates daily target (based on weight, activity, climate) and logs actual intake. |
+| **Wellness Calendar** | Interactive month view showing plan adherence (green cells) and hydration logs. |
+
+### Diet Planner Workflow
+
+1. Save or update personal details in the **Profile** tab.
+2. Switch to **Diet Planner** and click **Generate 7-Day Plan**.
+3. Review BMR/TDEE, per-day macros, warnings, and meal breakdowns.
+4. Generated plans automatically populate the dashboard and calendar.
+
+### Nutrition Analyzer Workflow
+
+1. Go to **Nutrition Analyzer**.
+2. Use quick high-protein picks or paste multiple foods in bulk.
+3. Run **Analyze meal** to view macros, breakdown table, and AI parsing notes.
+4. Download results as JSON for further tracking if needed.
+
+### Hydration & Calendar
+
+- Log water intake in **Hydration Coach**; logs sync to the calendar.
+- Mark diet-plan days as achieved inside the calendar; completed days display with a green background.
+
+## Data & Integrations
+
+- **Diet planning** – OpenAI GPT-4o-mini (or compatible) via the official SDK.
+- **Food composition** – IFCT 2017 dataset embedded locally (`archive/ifct2017_compositions.csv`).
+- **State management** – Streamlit session state retains profile, plan, hydration, and analyzer queues during a session.
+
+## Project Structure
+
+```
+diet/
+├── app.py                # Streamlit entry point and tab routing
+├── diet_plan.py          # Diet planning logic, validation, and UI sections
+├── food.py               # Nutrition analyzer logic and IFCT integrations
+├── archive/              # IFCT datasets and derived references
+├── docs/                 # Supplemental documentation (generated PDF flows)
+├── requirements.txt      # Python dependencies
+├── Dockerfile
+├── docker-compose.yml
+├── env.example
+└── README.md
+```
+
+## Running Tests / Linting
+
+The project is Streamlit-first; there are no automated tests yet. To validate changes manually:
+
+```bash
+streamlit run app.py   # ensure UI loads without errors
+python3 -m compileall app.py diet_plan.py food.py   # quick syntax check
+```
+
+## Generating Documentation
+
+This repository includes a generated PDF (`docs/fitfuel_logic.pdf`) summarizing the application logic, tab flow, and data sources. Regenerate it with:
+
+```bash
+python scripts/generate_flow_pdf.py  # if you create a helper script
+```
+
+## License
+
+MIT License. See `LICENSE` (add one if required).
 
 ## Prerequisites
 
@@ -85,6 +194,8 @@ The application will be available at:
 
 ## How to Use
 
+### Diet Plan Generator
+
 1. **Fill in Personal Information**: Enter your name, age, and gender in the sidebar
 2. **Set Physical Details**: Input your height and current weight
 3. **Choose Your Goal**: Select Weight Loss, Muscle Gain, or Maintenance
@@ -94,6 +205,14 @@ The application will be available at:
 7. **Add Health Info**: Select any health conditions and enter allergies if any
 8. **Generate Plan**: Click the "Generate Diet Plan" button
 9. **View Results**: Browse your personalized 7-day meal plan with detailed nutritional information
+
+### Nutrition Analyzer
+
+1. Switch the sidebar toggle to **Nutrition Analyzer**.
+2. The IFCT 2017 food composition database loads automatically; no upload required.
+3. Search the database from the sidebar or review the sample foods list.
+4. Add foods one by one or paste multiple lines in bulk.
+5. Click **Analyze** to generate calorie and macro totals, micronutrients, warnings, and a downloadable JSON report.
 
 ## Example User Inputs
 

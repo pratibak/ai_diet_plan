@@ -1,0 +1,69 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 5 0 R /Resources << /Font << /F1 4 0 R >> >> >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+5 0 obj
+<< /Length 2462 >>
+stream
+BT
+/F1 12 Tf
+1 0 0 1 72 760 Tm (FitFuel Wellness Hub - Logic & Flow) Tj
+1 0 0 1 72 744 Tm () Tj
+1 0 0 1 72 728 Tm (1. Profile Tab) Tj
+1 0 0 1 72 712 Tm (   • Collects user demographics, goals, diet type, allergies once.) Tj
+1 0 0 1 72 696 Tm (   • Data is stored in Streamlit session_state as 'diet_profile'.) Tj
+1 0 0 1 72 680 Tm () Tj
+1 0 0 1 72 664 Tm (2. Diet Planner Tab) Tj
+1 0 0 1 72 648 Tm (   • Reads saved profile and calculates BMR, TDEE, macro targets.) Tj
+1 0 0 1 72 632 Tm (   • Sends structured prompt to OpenAI \(gpt-4o-mini\) to build a 7-day plan.) Tj
+1 0 0 1 72 616 Tm (   • Validates AI response: 7 days, required meals, calorie tolerance, allergen scan.) Tj
+1 0 0 1 72 600 Tm (   • Saves plan summary into session_state['diet_plan_result'] for other tabs.) Tj
+1 0 0 1 72 584 Tm () Tj
+1 0 0 1 72 568 Tm (3. Nutrition Analyzer Tab) Tj
+1 0 0 1 72 552 Tm (   • Loads IFCT 2017 food database on startup.) Tj
+1 0 0 1 72 536 Tm (   • Users add dishes via quick picks or bulk paste.) Tj
+1 0 0 1 72 520 Tm (   • Calls OpenAI to parse dishes, match IFCT entries, and compute macros.) Tj
+1 0 0 1 72 504 Tm (   • Displays totals, meal breakdown table, and AI parsing notes.) Tj
+1 0 0 1 72 488 Tm () Tj
+1 0 0 1 72 472 Tm (4. Hydration Coach Tab) Tj
+1 0 0 1 72 456 Tm (   • Computes daily target = base \(weight\) + activity bonus, climate multiplier.) Tj
+1 0 0 1 72 440 Tm (   • Lets user log actual water intake per-day, stored in session_state['hydration_log'].) Tj
+1 0 0 1 72 424 Tm () Tj
+1 0 0 1 72 408 Tm (5. Wellness Calendar Tab) Tj
+1 0 0 1 72 392 Tm (   • Combines diet_plan_result schedule + hydration_log into calendar view.) Tj
+1 0 0 1 72 376 Tm (   • Green cells indicate plan adherence; icons show plan/hydration events.) Tj
+1 0 0 1 72 360 Tm (   • Date selector allows toggling plan achievement without reloading.) Tj
+1 0 0 1 72 344 Tm () Tj
+1 0 0 1 72 328 Tm (6. Dashboard) Tj
+1 0 0 1 72 312 Tm (   • Summarises plan status, meals queued, today’s calories, hydration trend.) Tj
+1 0 0 1 72 296 Tm (   • Charts reference stored plan data and hydration logs in real-time.) Tj
+1 0 0 1 72 280 Tm () Tj
+1 0 0 1 72 264 Tm (Data Sources & Integrations) Tj
+1 0 0 1 72 248 Tm (   • IFCT 2017 composition CSV for all macro lookups.) Tj
+1 0 0 1 72 232 Tm (   • OpenAI GPT-4o-mini for meal plan and analyzer generation.) Tj
+1 0 0 1 72 216 Tm (   • Streamlit session_state for cross-tab data persistence.) Tj
+ET
+endstream
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000241 00000 n 
+0000000311 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+2825
+%%EOF

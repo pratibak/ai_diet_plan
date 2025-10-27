@@ -1,9 +1,7 @@
+pip>=25.1
+setuptools>=65.0
+wheel
+
 streamlit==1.38.0
 openai==1.47.0
-pydantic==2.7.4
-pydantic-core
-pandas==2.2.2
-numpy==1.26.4
-python-dotenv==1.0.1
-requests==2.32.3
-altair==5.4.1
+pydantic>=2.7,<3

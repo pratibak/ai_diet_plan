@@ -18,16 +18,17 @@ import streamlit as st
 import openai
 import pydantic
 
+st.set_page_config(
+    page_title="FitFuel Wellness Hub",
+    page_icon="🍽️",
+    layout="wide",
+)
+
+# ✅ You can now safely call Streamlit functions
 st.write("✅ Environment check:")
 st.write("Streamlit:", st.__version__)
 st.write("OpenAI:", openai.__version__)
 st.write("Pydantic:", pydantic.__version__)
-
-st.set_page_config(
-        page_title="FitFuel Wellness Hub",
-        page_icon="🍽️",
-        layout="wide",
-    )
 
 def _get_saved_profile() -> Dict:
     return st.session_state.get("diet_profile", {})

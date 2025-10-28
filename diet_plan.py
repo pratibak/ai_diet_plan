@@ -373,6 +373,7 @@ def build_few_shot_examples() -> List[Dict]:
 # OPENAI INTEGRATION
 # ============================================================================
 
+
 def generate_diet_plan_with_llm(request: DietPlanRequest, nutrition_targets: Dict) -> Dict:
     """Call OpenAI API to generate diet plan"""
     
@@ -389,16 +390,28 @@ def generate_diet_plan_with_llm(request: DietPlanRequest, nutrition_targets: Dic
     
     print(f"[DEBUG] API key retrieved: {'Yes' if api_key else 'No'}")
     
-    # Set the API key for OpenAI client
+    # Set the API key for OpenAI client - STREAMLIT CLOUD COMPATIBLE VERSION
     print(f"[DEBUG] Creating OpenAI client...")
-    print(f"[DEBUG] Creating OpenAI client...")
-    openai.api_key = api_key
-    client = OpenAI(
-    timeout=90.0,  # 90 second timeout
-    max_retries=2
-)
-    print(f"[DEBUG] OpenAI client created successfully") # 90 second timeout - faster failure
-    print(f"[DEBUG] OpenAI client created successfully")
+    
+    # Clear any proxy-related environment variables that might interfere
+    proxy_vars = ['HTTP_PROXY', 'HTTPS_PROXY', 'http_proxy', 'https_proxy', 'ALL_PROXY', 'all_proxy']
+    original_proxy_values = {}
+    for var in proxy_vars:
+        if var in os.environ:
+            original_proxy_values[var] = os.environ[var]
+            del os.environ[var]
+    
+    try:
+        # Create client with minimal parameters
+        client = OpenAI(api_key=api_key)
+        print(f"[DEBUG] OpenAI client created successfully")
+    finally:
+        # Restore proxy settings if they existed
+        for var, value in original_proxy_values.items():
+            os.environ[var] = value
+
+# Build messages
+print(f"[DEBUG] Building messages...")
     
     # Build messages
     print(f"[DEBUG] Building messages...")

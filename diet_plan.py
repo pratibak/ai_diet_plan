@@ -380,8 +380,7 @@ def generate_diet_plan_with_llm(request: DietPlanRequest, nutrition_targets: Dic
     total_start = time.time()
     print(f"[DEBUG] Starting diet plan generation at {time.strftime('%H:%M:%S')}")
     
-    # Initialize OpenAI client
-    # Try to get API key from Streamlit secrets first, then from environment variable
+    # Get API key
     print(f"[DEBUG] Getting API key...")
     api_key = st.secrets.get("OPENAI_API_KEY") or os.getenv("OPENAI_API_KEY")
     
@@ -390,29 +389,37 @@ def generate_diet_plan_with_llm(request: DietPlanRequest, nutrition_targets: Dic
     
     print(f"[DEBUG] API key retrieved: {'Yes' if api_key else 'No'}")
     
-    # Set the API key for OpenAI client - STREAMLIT CLOUD COMPATIBLE VERSION
+    # Use direct HTTP approach to avoid proxy issues
     print(f"[DEBUG] Creating OpenAI client...")
     
-    # Clear any proxy-related environment variables that might interfere
-    proxy_vars = ['HTTP_PROXY', 'HTTPS_PROXY', 'http_proxy', 'https_proxy', 'ALL_PROXY', 'all_proxy']
-    original_proxy_values = {}
-    for var in proxy_vars:
-        if var in os.environ:
-            original_proxy_values[var] = os.environ[var]
-            del os.environ[var]
+    import httpx
+    
+    # Create httpx client without proxy support
+    http_client = httpx.Client(
+        timeout=90.0,
+        headers={
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json"
+        }
+    )
     
     try:
-        # Create client with minimal parameters
-        client = OpenAI(api_key=api_key)
+        # Create OpenAI client with custom http_client
+        client = OpenAI(api_key=api_key, http_client=http_client)
         print(f"[DEBUG] OpenAI client created successfully")
-    finally:
-        # Restore proxy settings if they existed
-        for var, value in original_proxy_values.items():
-            os.environ[var] = value
-
-# Build messages
-    print(f"[DEBUG] Building messages...")
+    except Exception as e:
+        print(f"[DEBUG] Error creating client: {str(e)}")
+        # Fallback: try setting environment variable
+        os.environ["OPENAI_API_KEY"] = api_key
+        try:
+            client = OpenAI()
+            print(f"[DEBUG] OpenAI client created successfully (env var method)")
+        except Exception as e2:
+            raise ValueError(f"Failed to initialize OpenAI client: {str(e2)}")
     
+    # Build messages
+    print(f"[DEBUG] Building messages...")
+    # ... rest of the function remains the same
     # Build messages
     print(f"[DEBUG] Building messages...")
     prompt_start = time.time()

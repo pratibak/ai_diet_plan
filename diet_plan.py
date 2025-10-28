@@ -397,7 +397,7 @@ def generate_diet_plan_with_llm(request: DietPlanRequest, nutrition_targets: Dic
     timeout=90.0,  # 90 second timeout
     max_retries=2
 )
-print(f"[DEBUG] OpenAI client created successfully") # 90 second timeout - faster failure
+    print(f"[DEBUG] OpenAI client created successfully") # 90 second timeout - faster failure
     print(f"[DEBUG] OpenAI client created successfully")
     
     # Build messages

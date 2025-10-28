@@ -392,8 +392,8 @@ def generate_diet_plan_with_llm(request: DietPlanRequest, nutrition_targets: Dic
     # Set the API key for OpenAI client
     print(f"[DEBUG] Creating OpenAI client...")
     print(f"[DEBUG] Creating OpenAI client...")
+    openai.api_key = api_key
     client = OpenAI(
-    api_key=api_key,
     timeout=90.0,  # 90 second timeout
     max_retries=2
 )

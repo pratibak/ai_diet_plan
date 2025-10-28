@@ -5,6 +5,7 @@ from datetime import datetime, date, timedelta
 import openai
 import json
 import os
+from openai import OpenAI
 import time
 from enum import Enum
 
@@ -390,7 +391,7 @@ def generate_diet_plan_with_llm(request: DietPlanRequest, nutrition_targets: Dic
     
     # Set the API key for OpenAI client
     print(f"[DEBUG] Creating OpenAI client...")
-    client = openai.OpenAI(api_key=api_key, timeout=90.0)  # 90 second timeout - faster failure
+    client = OpenAI(api_key=api_key, timeout=90.0) # 90 second timeout - faster failure
     print(f"[DEBUG] OpenAI client created successfully")
     
     # Build messages

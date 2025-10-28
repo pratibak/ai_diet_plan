@@ -2,7 +2,7 @@ import streamlit as st
 from pydantic import BaseModel, Field, validator
 from typing import List, Optional, Dict, Any
 from datetime import datetime, date, timedelta
-
+import openai
 import json
 import os
 from openai import OpenAI

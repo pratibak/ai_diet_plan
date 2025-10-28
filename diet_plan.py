@@ -411,7 +411,7 @@ def generate_diet_plan_with_llm(request: DietPlanRequest, nutrition_targets: Dic
             os.environ[var] = value
 
 # Build messages
-print(f"[DEBUG] Building messages...")
+    print(f"[DEBUG] Building messages...")
     
     # Build messages
     print(f"[DEBUG] Building messages...")
